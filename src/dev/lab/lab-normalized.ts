@@ -1,5 +1,5 @@
 /* eslint-disable no-unexpected-multiline */
-import { jemv, Helper } from '../../lib'
+import { manager, Helper } from '../../lib'
 
 (async () => {
 	try {
@@ -12,7 +12,7 @@ import { jemv, Helper } from '../../lib'
 		const target:any[] = []
 		const source = Helper.tryParse(content)
 		for (const _case of source) {
-			target.push(jemv.normalize(_case.schema))
+			target.push(manager.normalize(_case.schema))
 		}
 		await Helper.writeFile('./src/dev/lab/normalized.json', JSON.stringify(target, null, 2))
 	} catch (error:any) {

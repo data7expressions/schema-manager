@@ -1,5 +1,5 @@
 import { Schema } from './model/schema'
-import { SchemaManager } from './manager'
+import { SchemaManager } from './manager/schemaManager'
 export * from './model/schema'
 export * from './manager'
 

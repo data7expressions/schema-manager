@@ -1,6 +1,7 @@
 import { Schema, ISchemaTransform, ISchemaManager } from '../model/schema'
 import { Helper } from '.'
-import { SchemaExtender, SchemaCompleter } from './'
+import { SchemaCompleter } from './schemaCompleter'
+import { SchemaExtender } from './schemaExtender'
 
 export class SchemaManagerBuilder {
 	public build () : ISchemaManager {
