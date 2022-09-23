@@ -1,0 +1,10 @@
+{
+	"entryPoints": [
+		"src/lib"
+	],
+	"out": "doc/source",
+	"excludePrivate": true,
+	"excludeProtected": true,
+	"name": "schema-manager",
+	"readme": "none"
+}
