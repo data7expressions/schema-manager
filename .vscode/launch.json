@@ -5,13 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [		
 		{
-			"name": "generare data test ",
+			"name": "lab normalize",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/task/generate-data-test.ts"
+			"program": "${workspaceFolder}/src/dev/lab/lab-normalize.ts"
 		},
 		{
 			"name": "lab load",
@@ -21,6 +21,24 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-load.ts"
-		}		
+		},
+		{
+			"name": "generate data test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/generate-data-test.ts"
+		},
+		{
+			"name": "generate test",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/task/generate-test.ts"
+		}
     ]
 }

@@ -1,5 +1,6 @@
 [
   {
+    "description": "root pointer ref",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "properties": {
@@ -19,6 +20,7 @@
     }
   },
   {
+    "description": "relative pointer ref to object",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "properties": {
@@ -42,6 +44,7 @@
     }
   },
   {
+    "description": "relative pointer ref to array",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "prefixItems": [
@@ -65,6 +68,7 @@
     }
   },
   {
+    "description": "escaped pointer ref",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$defs": {
@@ -116,6 +120,7 @@
     }
   },
   {
+    "description": "nested refs",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$defs": {
@@ -147,6 +152,7 @@
     }
   },
   {
+    "description": "ref applies alongside sibling keywords",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$defs": {
@@ -176,6 +182,7 @@
     }
   },
   {
+    "description": "remote ref, containing refs itself",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$ref": "https://json-schema.org/draft/2020-12/schema"
@@ -185,6 +192,7 @@
     }
   },
   {
+    "description": "property named $ref that is not a reference",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "properties": {
@@ -202,6 +210,7 @@
     }
   },
   {
+    "description": "property named $ref, containing an actual $ref",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "properties": {
@@ -229,6 +238,7 @@
     }
   },
   {
+    "description": "$ref to boolean schema true",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$ref": "#/$defs/bool",
@@ -244,6 +254,7 @@
     }
   },
   {
+    "description": "$ref to boolean schema false",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$ref": "#/$defs/bool",
@@ -259,6 +270,7 @@
     }
   },
   {
+    "description": "Recursive references between schemas",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "http://localhost:1234/draft2020-12/tree",
@@ -336,6 +348,7 @@
     }
   },
   {
+    "description": "refs with quote",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "properties": {
@@ -363,6 +376,7 @@
     }
   },
   {
+    "description": "ref creates new scope when adjacent to keywords",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$defs": {
@@ -392,6 +406,7 @@
     }
   },
   {
+    "description": "naive replacement of $ref with its destination is not correct",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$defs": {
@@ -419,6 +434,7 @@
     }
   },
   {
+    "description": "refs with relative uris and defs",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "http://example.com/schema-relative-uri-defs1.json",
@@ -460,6 +476,7 @@
     }
   },
   {
+    "description": "relative refs with absolute uris and defs",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "http://example.com/schema-refs-absolute-uris-defs1.json",
@@ -501,6 +518,7 @@
     }
   },
   {
+    "description": "$id must be resolved against nearest parent, not just immediate parent",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "http://example.com/a.json",
@@ -546,6 +564,7 @@
     }
   },
   {
+    "description": "order of evaluation: $id and $ref",
     "schema": {
       "$comment": "$id must be evaluated before $ref to get the proper $ref destination",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -580,6 +599,7 @@
     }
   },
   {
+    "description": "order of evaluation: $id and $anchor and $ref",
     "schema": {
       "$comment": "$id must be evaluated before $ref to get the proper $ref destination",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -615,6 +635,7 @@
     }
   },
   {
+    "description": "simple URN base URI with $ref via the URN",
     "schema": {
       "$comment": "URIs do not have to have HTTP(s) schemes",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -637,6 +658,7 @@
     }
   },
   {
+    "description": "simple URN base URI with JSON pointer",
     "schema": {
       "$comment": "URIs do not have to have HTTP(s) schemes",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -667,6 +689,7 @@
     }
   },
   {
+    "description": "URN base URI with NSS",
     "schema": {
       "$comment": "RFC 8141 §2.2",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -697,6 +720,7 @@
     }
   },
   {
+    "description": "URN base URI with r-component",
     "schema": {
       "$comment": "RFC 8141 §2.3.1",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -727,6 +751,7 @@
     }
   },
   {
+    "description": "URN base URI with q-component",
     "schema": {
       "$comment": "RFC 8141 §2.3.2",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -757,6 +782,7 @@
     }
   },
   {
+    "description": "URN base URI with f-component",
     "schema": {
       "$comment": "RFC 8141 §2.3.3, but we don't allow fragments",
       "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -767,6 +793,7 @@
     }
   },
   {
+    "description": "URN base URI with URN and JSON pointer ref",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "urn:uuid:deadbeef-1234-0000-0000-4321feebdaed",
@@ -796,6 +823,7 @@
     }
   },
   {
+    "description": "URN base URI with URN and anchor ref",
     "schema": {
       "$schema": "https://json-schema.org/draft/2020-12/schema",
       "$id": "urn:uuid:deadbeef-1234-ff00-00ff-4321feebdaed",
@@ -827,6 +855,7 @@
     }
   },
   {
+    "description": "URN ref with nested pointer ref",
     "schema": {
       "$ref": "urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed",
       "$defs": {

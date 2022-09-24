@@ -42,7 +42,7 @@ export class SchemaManager implements ISchemaManager {
 				if (!loaded) {
 					throw Error(`The schema in ${value} not found`)
 				}
-				schema = this.normalize(Helper.clone(loaded))
+				schema = this.normalize(loaded)
 				key = schema.$id && typeof schema.$id === 'string' ? schema.$id : value
 				this.schemas[key] = schema
 			}
@@ -50,7 +50,7 @@ export class SchemaManager implements ISchemaManager {
 			if (value as Schema === undefined) {
 				throw new Error('Parameter value is invalid')
 			}
-			schema = this.normalize(Helper.clone(value))
+			schema = this.normalize(value)
 			key = this.getKey(schema)
 			this.schemas[key] = schema
 		}
