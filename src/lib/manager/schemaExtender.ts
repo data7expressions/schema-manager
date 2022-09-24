@@ -1,8 +1,8 @@
-import { ISchemaTransform, Schema } from '../model/schema'
+import { ISchemaExtender, Schema } from '../model/schema'
 import { Helper } from '.'
 
-export class SchemaExtender implements ISchemaTransform {
-	public execute (schema: Schema): Schema {
+export class SchemaExtender implements ISchemaExtender {
+	public extend (schema: Schema):void {
 		if (schema === undefined || schema === null) {
 			throw new Error('source is empty')
 		}
@@ -10,12 +10,11 @@ export class SchemaExtender implements ISchemaTransform {
 			return schema
 		}
 		if (schema.$defs === undefined || schema.$defs === null) {
-			return schema
+			return
 		}
 		for (const def of Object.values(schema.$defs)) {
 			this.extendDef(def as Schema, schema.$defs)
 		}
-		return schema
 	}
 
 	private extendDef (def: Schema, defs:any): void {

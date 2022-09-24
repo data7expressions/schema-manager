@@ -1,5 +1,5 @@
 /* eslint-disable no-unexpected-multiline */
-import { manager, Helper } from '../../lib'
+import { schemas, Helper } from '../../lib'
 
 (async () => {
 	try {
@@ -9,13 +9,11 @@ import { manager, Helper } from '../../lib'
 		if (content === null) {
 			throw new Error(`file ${file} not found`)
 		}
-		const target:any[] = []
 		const source = Helper.tryParse(content)
 		for (const _case of source) {
-			const download = await manager.load(_case.schema)
-			target.push(download)
+			await schemas.load(_case.schema)
 		}
-		await Helper.writeFile('./src/dev/lab/normalized.json', JSON.stringify(target, null, 2))
+		await Helper.writeFile('./src/dev/lab/loaded.json', JSON.stringify(schemas.list(), null, 2))
 	} catch (error:any) {
 		console.error(error)
 	}

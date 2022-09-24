@@ -1,18 +1,17 @@
-import { ISchemaTransform, Schema } from '../model/schema'
+import { ISchemaCompleter, Schema } from '../model/schema'
 import { Helper } from '.'
 
-export class SchemaCompleter implements ISchemaTransform {
-	public execute (schema:Schema):Schema {
+export class SchemaCompleter implements ISchemaCompleter {
+	public complete (schema:Schema):void {
 		if (schema === undefined || schema === null) {
 			throw new Error('source is empty')
 		}
 		if (typeof schema !== 'object') {
-			return schema
+			return
 		}
 		this.completeId(schema, schema, schema.$id)
 		this.completeRef(schema, schema, '', schema.$id)
 		this.removeProperties(schema)
-		return schema
 	}
 
 	private completeId (root:Schema, data:Schema, parentId?:string) : void {
@@ -23,13 +22,48 @@ export class SchemaCompleter implements ISchemaTransform {
 				this.completeId(root, item, _parentId)
 			}
 		} else if (data && typeof data === 'object') {
-			if (data.$anchor || data.$id) {
-				data.$id = this.solveId(data, _parentId)
+			if (data.$id && typeof data.$id === 'string') {
+				data.$id = this.solveId(data.$id, data.$anchor, _parentId)
 				_parentId = data.$id
+				if (data.$anchor && typeof data.$anchor === 'string') {
+					delete data.$anchor
+				}
+			} else if (data.$anchor && typeof data.$anchor === 'string') {
+				if (parentId === undefined) {
+					throw new Error(`Could not resolve anchor: ${data.$anchor} without parent`)
+				}
+				if (data.$id !== undefined && typeof data.$id !== 'string') {
+					throw new Error(`Could not resolve anchor: ${data.$anchor} if $id is not string`)
+				}
+				data.$id = `${parentId}#${data.$anchor}`
+				_parentId = data.$id
+				delete data.$anchor
 			}
 			for (const entry of Object.entries(data)) {
 				this.completeId(root, entry[1], _parentId)
 			}
+		}
+	}
+
+	private solveId (id:string, anchor?:any, parentId?:string): string {
+		try {
+			let _id:string
+			if (parentId === undefined || id.startsWith('http:')) {
+				_id = id
+			} else if (id === parentId) {
+				_id = id
+			} else if (id && parentId !== undefined) {
+				_id = Helper.urlJoin(parentId, id)
+			} else {
+				_id = id
+			}
+			if (anchor) {
+				return `${_id}#${anchor}`
+			}
+			return _id
+		} catch (error) {
+			console.error(error)
+			throw error
 		}
 	}
 
@@ -101,13 +135,19 @@ export class SchemaCompleter implements ISchemaTransform {
 		}
 		if (parentId) {
 			const ref = Helper.urlJoin(parentId, current.$ref)
+			// busca si el uri es un id dentro del current schema
 			let found = this.schemaPathById(current, ref, '#')
 			if (found) {
 				return found
 			}
+			// busca si el uri es un id dentro del schema
 			found = this.schemaPathById(root, ref, '#')
 			if (found) {
 				return found
+			}
+			// si comienza con http es un uri externo
+			if (ref.startsWith('http')) {
+				return ref
 			}
 		}
 		throw new Error(`Ref ${current.$ref} is invalid`)
@@ -209,32 +249,6 @@ export class SchemaCompleter implements ISchemaTransform {
 		}
 	}
 
-	private solveId (data:Schema, parentId?:string): string {
-		let id:string|undefined
-
-		if (data.$id && (parentId === undefined || data.$id.startsWith('http:'))) {
-			id = data.$id
-		} else if (data.$id === parentId) {
-			id = data.$id
-		} else if (data.$id && parentId !== undefined) {
-			id = Helper.urlJoin(parentId, data.$id)
-		} else {
-			id = undefined
-		}
-		if (data.$anchor && id !== undefined) {
-			return `${id}#${data.$anchor}`
-			// return `${id}/#${data.$anchor}`
-		}
-		if (data.$anchor && parentId) {
-			return `${parentId}#${data.$anchor}`
-			// return parentId.endsWith('/') ? `${parentId}#${data.$anchor}` : `${parentId}/#${data.$anchor}`
-		}
-		if (id !== undefined) {
-			return id
-		}
-		throw new Error(`Could not resolve id for id: ${data.$id}, parent:${parentId}, anchor: ${data.$anchor}`)
-	}
-
 	private removeProperties (data:any) {
 		if (Array.isArray(data)) {
 			for (const item of data) {
@@ -243,7 +257,6 @@ export class SchemaCompleter implements ISchemaTransform {
 		} else if (data && typeof data === 'object') {
 			delete data.description
 			delete data.$comment
-			delete data.$anchor
 			delete data.$schema
 			delete data.$extends
 			for (const value of Object.values(data)) {

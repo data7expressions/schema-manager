@@ -3,28 +3,28 @@ import { SchemaManager } from './manager/schemaManager'
 export * from './model/schema'
 export * from './manager'
 
-export const manager = SchemaManager.instance
+export const schemas = SchemaManager.instance
 
 export const add = (value: Schema): Schema => {
-	return manager.add(value)
+	return schemas.add(value)
 }
 
-export const load = async (value: string|Schema): Promise<Schema> => {
-	return manager.load(value)
+export const load = async (value: string|Schema): Promise<Schema[]> => {
+	return schemas.load(value)
 }
 
 export const get = (key: string): Schema => {
-	return manager.get(key)
+	return schemas.get(key)
+}
+
+export const list = (): Schema[] => {
+	return schemas.list()
 }
 
 export const solve = (value: string|Schema): Schema => {
-	return manager.solve(value)
-}
-
-export const externalRefs = (schema: Schema): string[] => {
-	return manager.externalRefs(schema)
+	return schemas.solve(value)
 }
 
 export const normalize = (source: Schema): Schema => {
-	return manager.normalize(source)
+	return schemas.normalize(source)
 }

@@ -5,13 +5,13 @@
 	"version": "0.2.0",
 	"configurations": [		
 		{
-			"name": "lab normalized",
+			"name": "generare data test ",
 			"type": "node",
 			"request": "launch",
 			"skipFiles": [
 				"<node_internals>/**"
 			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-normalized.ts"
+			"program": "${workspaceFolder}/src/dev/task/generate-data-test.ts"
 		},
 		{
 			"name": "lab load",
