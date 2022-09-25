@@ -74,8 +74,9 @@ export class SchemaManager implements ISchemaManager {
 			throw new Error('Parameter value is invalid')
 		}
 		const schema = this.normalize(value)
-		if (this.externalRefs(schema).length > 0) {
-			throw new Error('You must use the load method, since it is required to load external schemas')
+		const externalRefs = this.externalRefs(schema)
+		if (externalRefs.length > 0 && externalRefs.find(p => !this.schemas.includes(p)) !== undefined) {
+			throw new Error(`External refs ${externalRefs.join(',')} were not previously loaded`)
 		}
 		if (schema.$id === undefined || typeof schema.$id !== 'string') {
 			schema.$id = Helper.createKey(schema)
