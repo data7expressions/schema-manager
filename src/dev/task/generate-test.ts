@@ -1,5 +1,5 @@
 /* eslint-disable no-unexpected-multiline */
-import { schemas, Helper } from '../../lib'
+import { Helper } from '../../lib'
 
 const createNormalizeTest = (data:any) => {
 	return `
@@ -21,21 +21,21 @@ const createLoadTest = (data:any) => {
   })`
 }
 
-const createRefTest = (data:any) => {
-	const list:string[] = []
-	const refs = schemas.refs(data.schema)
-	for (const ref of refs) {
-		list.push(`
-		test('${data.description} ${ref}', async () => {
-		const schema = JSON.parse('${Helper.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
-		const ref = '${ref}'
-		const expected = '${JSON.stringify(data.result)}'
-		const target = JSON.stringify(schemas.solveRef(schema, ref))
-		expect(expected).toBe(target)
-	  })`)
-	}
-	return list.join('\n')
-}
+// const createRefTest = (data:any) => {
+// const list:string[] = []
+// const refs = schemas.refs(data.schema)
+// for (const ref of refs) {
+// list.push(`
+// test('${data.description} ${ref}', async () => {
+// const schema = JSON.parse('${Helper.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
+// const ref = '${ref}'
+// const expected = '${JSON.stringify(data.result)}'
+// const target = JSON.stringify(schemas.solveRef(schema, ref))
+// expect(expected).toBe(target)
+// })`)
+// }
+// return list.join('\n')
+// }
 
 const createContentTest = (name:string, test:string) => {
 	return `import { schemas } from '../../lib'
