@@ -34,7 +34,6 @@ export class SchemaManager implements ISchemaManager {
 			return [value]
 		}
 		let schema:Schema | undefined
-		let key:string
 		if (typeof value === 'string') {
 			schema = this.schemas[value] as Schema | undefined
 			if (!schema) {
@@ -43,16 +42,20 @@ export class SchemaManager implements ISchemaManager {
 					throw Error(`The schema in ${value} not found`)
 				}
 				schema = this.normalize(loaded)
-				key = schema.$id && typeof schema.$id === 'string' ? schema.$id : value
-				this.schemas[key] = schema
+				if (schema.$id === undefined || typeof schema.$id !== 'string') {
+					schema.$id = value
+				}
+				this.schemas[schema.$id] = schema
 			}
 		} else {
 			if (value as Schema === undefined) {
 				throw new Error('Parameter value is invalid')
 			}
 			schema = this.normalize(value)
-			key = this.getKey(schema)
-			this.schemas[key] = schema
+			if (schema.$id === undefined || typeof schema.$id !== 'string') {
+				schema.$id = Helper.createKey(schema)
+			}
+			this.schemas[schema.$id] = schema
 		}
 		list.push(schema)
 		const externalsRefs = this.externalRefs(schema)
@@ -74,13 +77,11 @@ export class SchemaManager implements ISchemaManager {
 		if (this.externalRefs(schema).length > 0) {
 			throw new Error('You must use the load method, since it is required to load external schemas')
 		}
-		const key = this.getKey(schema)
-		this.schemas[key] = schema
+		if (schema.$id === undefined || typeof schema.$id !== 'string') {
+			schema.$id = Helper.createKey(schema)
+		}
+		this.schemas[schema.$id] = schema
 		return schema
-	}
-
-	private getKey (schema: Schema) {
-		return schema.$id && typeof schema.$id === 'string' ? schema.$id : Helper.createKey(schema)
 	}
 
 	public get (key: string) : Schema {
@@ -93,19 +94,6 @@ export class SchemaManager implements ISchemaManager {
 
 	public list () : Schema[] {
 		return Object.values(this.schemas)
-	}
-
-	public solve (value: string|Schema) : Schema {
-		if (value === null || value === undefined || typeof value === 'boolean') {
-			return value
-		}
-		if (typeof value === 'string') {
-			return this.get(value)
-		}
-		if (value as Schema === undefined) {
-			throw new Error('Parameter value is invalid')
-		}
-		return this.add(value)
 	}
 
 	public normalize (source: Schema): Schema {
@@ -121,7 +109,52 @@ export class SchemaManager implements ISchemaManager {
 		return schema
 	}
 
-	private externalRefs (schema: Schema):string[] {
+	public solve (value: string|Schema) : Schema {
+		if (value === null || value === undefined || typeof value === 'boolean') {
+			return value
+		}
+		if (typeof value === 'string') {
+			return this.get(value)
+		}
+		if (value as Schema === undefined) {
+			throw new Error('Parameter value is invalid')
+		}
+		if (value.$id && typeof value.$id === 'string') {
+			const schema = this.schemas[value.$id] as Schema | undefined
+			if (schema) {
+				return schema
+			}
+		}
+		return this.add(value)
+	}
+
+	public solveRef (schema:Schema, ref:string): Schema {
+		const externalRefs = this.externalRefs(schema)
+		const isExternal = externalRefs.length > 0 && externalRefs.includes(ref)
+		if (isExternal) {
+			const keys = ref.split('#')
+			const externalSchema = this.schemas[keys[0]]
+			if (keys.length === 1 || keys[1] === '/') {
+				return externalSchema
+			} else {
+				const path = keys[1].startsWith('/') ? keys[1].replace('/', '') : keys[1]
+				return Helper.jsonPath(externalSchema, path)
+			}
+		} else if (ref === '#') {
+			return schema
+		} else {
+			const path = ref.startsWith('#/') ? ref.replace('#/', '') : ref
+			return Helper.jsonPath(schema, path)
+		}
+	}
+
+	public refs (schema: Schema):string[] {
+		return Helper.findAllInObject(schema, (value:any):boolean => {
+			return value.$ref !== undefined && typeof value.$ref === 'string'
+		}).map(p => p.$ref as string)
+	}
+
+	public externalRefs (schema: Schema):string[] {
 		const ids = Helper.findAllInObject(schema, (value:any):boolean => {
 			return value.$id !== undefined && typeof value.$id === 'string' && value.$id.startsWith('http')
 		}).map(p => p.$id)

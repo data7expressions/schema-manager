@@ -1,6 +1,6 @@
 {
 	"name": "schema-manager",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "Schema Manager",
 	"author": "Flavio Lionel Rita <flaviolrita@hotmail.com>",
 	"license": "Apache-2.0 License",
@@ -26,8 +26,8 @@
 		"release": "grunt release",
 		"doc": "grunt doc"
 	},
-	"dependencies": {		
-		"h3lp": "^0.0.10"
+	"dependencies": {
+		"h3lp": "^0.0.11"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.0.0",
@@ -66,5 +66,5 @@
 		"json",
 		"schema",
 		"json-schema"
-	]	
+	]
 }

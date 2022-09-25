@@ -1,5 +1,5 @@
 /* eslint-disable no-unexpected-multiline */
-import { schemas, Helper } from '../../lib'
+import { schemas as schemaManager, Helper } from '../../lib'
 
 (async () => {
 	try {
@@ -12,17 +12,28 @@ import { schemas, Helper } from '../../lib'
 		let target:any[] = []
 		const source = Helper.tryParse(content)
 		for (const _case of source) {
-			const result = schemas.normalize(_case.schema)
+			const result = schemaManager.normalize(_case.schema)
 			target.push({ description: _case.description, schema: _case.schema, result: result })
 		}
 		await Helper.writeFile('./src/dev/data4Test/normalize.json', JSON.stringify(target, null, 2))
 
 		target = []
 		for (const _case of source) {
-			const result = await schemas.load(_case.schema)
+			const result = await schemaManager.load(_case.schema)
 			target.push({ description: _case.description, schema: _case.schema, result: result })
 		}
 		await Helper.writeFile('./src/dev/data4Test/load.json', JSON.stringify(target, null, 2))
+
+		const target2:any[] = []
+		for (const p of target) {
+			const schema = p.result[0]
+			const refs = schemaManager.refs(schema)
+			for (const ref of refs) {
+				const result = schemaManager.solveRef(schema, ref)
+				target2.push({ description: p.description, schema: schema, ref: ref, result: result })
+			}
+		}
+		await Helper.writeFile('./src/dev/data4Test/ref.json', JSON.stringify(target2, null, 2))
 	} catch (error:any) {
 		console.error(error)
 	}

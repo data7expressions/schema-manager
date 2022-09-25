@@ -28,3 +28,15 @@ export const solve = (value: string|Schema): Schema => {
 export const normalize = (source: Schema): Schema => {
 	return schemas.normalize(source)
 }
+
+export const refs = (source: Schema): string[] => {
+	return schemas.refs(source)
+}
+
+export const externalRefs = (source: Schema): string[] => {
+	return schemas.externalRefs(source)
+}
+
+export const solveRef = (schema:Schema, ref:string): Schema => {
+	return schemas.solveRef(schema, ref)
+}

@@ -3,16 +3,7 @@
 	// Hover to view descriptions of existing attributes.
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
-	"configurations": [		
-		{
-			"name": "lab normalize",
-			"type": "node",
-			"request": "launch",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"program": "${workspaceFolder}/src/dev/lab/lab-normalize.ts"
-		},
+	"configurations": [
 		{
 			"name": "lab load",
 			"type": "node",
@@ -21,6 +12,15 @@
 				"<node_internals>/**"
 			],
 			"program": "${workspaceFolder}/src/dev/lab/lab-load.ts"
+		},
+		{
+			"name": "lab ref",
+			"type": "node",
+			"request": "launch",
+			"skipFiles": [
+				"<node_internals>/**"
+			],
+			"program": "${workspaceFolder}/src/dev/lab/lab-ref.ts"
 		},
 		{
 			"name": "generate data test",

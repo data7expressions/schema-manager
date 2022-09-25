@@ -29,6 +29,8 @@ export interface ISchemaManager{
 	get (key: string): Schema
 	list () : Schema[]
 	solve (value: string|Schema) : Schema
-	// externalRefs (schema: Schema):string[]
 	normalize (source: Schema): Schema
+	refs (schema: Schema):string[]
+	externalRefs (schema: Schema):string[]
+	solveRef (schema:Schema, ref:string) : Schema
 }

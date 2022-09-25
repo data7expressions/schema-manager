@@ -1,5 +1,5 @@
 /* eslint-disable no-unexpected-multiline */
-import { Helper } from '../../lib'
+import { schemas, Helper } from '../../lib'
 
 const createNormalizeTest = (data:any) => {
 	return `
@@ -19,6 +19,22 @@ const createLoadTest = (data:any) => {
     const target = JSON.stringify(await schemas.load(source))
     expect(expected).toBe(target)
   })`
+}
+
+const createRefTest = (data:any) => {
+	const list:string[] = []
+	const refs = schemas.refs(data.schema)
+	for (const ref of refs) {
+		list.push(`
+		test('${data.description} ${ref}', async () => {
+		const schema = JSON.parse('${Helper.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
+		const ref = '${ref}'
+		const expected = '${JSON.stringify(data.result)}'
+		const target = JSON.stringify(schemas.solveRef(schema, ref))
+		expect(expected).toBe(target)
+	  })`)
+	}
+	return list.join('\n')
 }
 
 const createContentTest = (name:string, test:string) => {
@@ -47,8 +63,10 @@ const createTest = async (name:string, func: (data:any) => string, exclude:strin
 
 (async () => {
 	try {
-		await createTest('normalize', (data:any):string => { return createNormalizeTest(data) }, ['refs with quote'])
-		await createTest('load', (data:any):string => { return createLoadTest(data) }, ['refs with quote'])
+		const excludes = ['refs with quote']
+		await createTest('normalize', (data:any):string => { return createNormalizeTest(data) }, excludes)
+		await createTest('load', (data:any):string => { return createLoadTest(data) }, excludes)
+		// await createTest('ref', (data:any):string => { return createRefTest(data) }, excludes)
 	} catch (error:any) {
 		console.error(error)
 	}
