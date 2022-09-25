@@ -1,4 +1,4 @@
-import { Schema } from './model/schema'
+import { Schema, RefInfo } from './model/schema'
 import { SchemaManager } from './manager/schemaManager'
 export * from './model/schema'
 export * from './manager'
@@ -37,6 +37,6 @@ export const externalRefs = (source: Schema): string[] => {
 	return schemas.externalRefs(source)
 }
 
-export const solveRef = (schema:Schema, ref:string): Schema => {
+export const solveRef = (schema:Schema, ref:string): RefInfo => {
 	return schemas.solveRef(schema, ref)
 }

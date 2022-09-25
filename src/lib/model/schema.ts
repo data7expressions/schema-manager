@@ -7,10 +7,11 @@ export interface Schema {
 	$defs: any
 	// https://json-schema.org/understanding-json-schema/structuring.html?highlight=ref
 	$ref?: string
+}
 
-	// // propiedades resueltas
-	// $$id?: string
-	// $$ref?: string
+export interface RefInfo {
+	schema:Schema
+	referenced: Schema
 }
 
 export interface ISchemaCompleter {
@@ -32,5 +33,5 @@ export interface ISchemaManager{
 	normalize (source: Schema): Schema
 	refs (schema: Schema):string[]
 	externalRefs (schema: Schema):string[]
-	solveRef (schema:Schema, ref:string) : Schema
+	solveRef (schema:Schema, ref:string) : RefInfo
 }

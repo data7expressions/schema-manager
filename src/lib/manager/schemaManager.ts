@@ -1,4 +1,4 @@
-import { Schema, ISchemaCompleter, ISchemaExtender, ISchemaManager, ISchemaLoader } from '../model/schema'
+import { Schema, ISchemaCompleter, ISchemaExtender, ISchemaManager, ISchemaLoader, RefInfo } from '../model/schema'
 import { Helper } from '.'
 import { SchemaCompleter } from './schemaCompleter'
 import { SchemaExtender } from './schemaExtender'
@@ -128,7 +128,7 @@ export class SchemaManager implements ISchemaManager {
 		return this.add(value)
 	}
 
-	public solveRef (schema:Schema, ref:string): Schema {
+	public solveRef (schema:Schema, ref:string): RefInfo {
 		const externalRefs = this.externalRefs(schema)
 		const isExternal = externalRefs.length > 0 && externalRefs.includes(ref)
 		if (isExternal) {
@@ -138,16 +138,18 @@ export class SchemaManager implements ISchemaManager {
 				throw new Error(`Schema ${keys[0]} not found`)
 			}
 			if (keys.length === 1 || keys[1] === '/') {
-				return externalSchema
+				return { schema: externalSchema, referenced: externalSchema }
 			} else {
 				const path = keys[1].startsWith('/') ? keys[1].replace('/', '') : keys[1]
-				return Helper.jsonPath(externalSchema, path)
+				const referenced = Helper.jsonPath(externalSchema, path)
+				return { schema: externalSchema, referenced: referenced }
 			}
 		} else if (ref === '#') {
-			return schema
+			return { schema: schema, referenced: schema }
 		} else {
 			const path = ref.startsWith('#/') ? ref.replace('#/', '') : ref
-			return Helper.jsonPath(schema, path)
+			const referenced = Helper.jsonPath(schema, path)
+			return { schema: schema, referenced: referenced }
 		}
 	}
 
