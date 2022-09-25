@@ -75,7 +75,7 @@ export class SchemaManager implements ISchemaManager {
 		}
 		const schema = this.normalize(value)
 		const externalRefs = this.externalRefs(schema)
-		if (externalRefs.length > 0 && externalRefs.find(p => !this.schemas.includes(p)) !== undefined) {
+		if (externalRefs.length > 0 && externalRefs.find(p => !Object.keys(this.schemas).includes(p)) !== undefined) {
 			throw new Error(`External refs ${externalRefs.join(',')} were not previously loaded`)
 		}
 		if (schema.$id === undefined || typeof schema.$id !== 'string') {
