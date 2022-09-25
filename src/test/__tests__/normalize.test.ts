@@ -178,7 +178,7 @@ import { schemas } from '../../lib'
 
 	test('URN base URI with URN and JSON pointer ref', () => {
     const source = JSON.parse('{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"urn:uuid:deadbeef-1234-0000-0000-4321feebdaed","properties":{"foo":{"$ref":"urn:uuid:deadbeef-1234-0000-0000-4321feebdaed#/$defs/bar"}},"$defs":{"bar":{"type":"string"}}}')
-    const expected = '{"$id":"urn:uuid:deadbeef-1234-0000-0000-4321feebdaed","properties":{"foo":{"$ref":"##/$defs/bar"}},"$defs":{"bar":{"type":"string"}}}'
+    const expected = '{"$id":"urn:uuid:deadbeef-1234-0000-0000-4321feebdaed","properties":{"foo":{"$ref":"#/$defs/bar"}},"$defs":{"bar":{"type":"string"}}}'
     const target = JSON.stringify(schemas.normalize(source))
     expect(expected).toBe(target)
   })

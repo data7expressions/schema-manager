@@ -12,13 +12,24 @@
     },
     "ref": "#",
     "result": {
-      "properties": {
-        "foo": {
-          "$ref": "#"
-        }
+      "schema": {
+        "properties": {
+          "foo": {
+            "$ref": "#"
+          }
+        },
+        "additionalProperties": false,
+        "$id": "{properties:{foo:{$ref:#}},additionalproperties:false}"
       },
-      "additionalProperties": false,
-      "$id": "{properties:{foo:{$ref:#}},additionalproperties:false}"
+      "referenced": {
+        "properties": {
+          "foo": {
+            "$ref": "#"
+          }
+        },
+        "additionalProperties": false,
+        "$id": "{properties:{foo:{$ref:#}},additionalproperties:false}"
+      }
     }
   },
   {
@@ -36,7 +47,20 @@
     },
     "ref": "#/properties/foo",
     "result": {
-      "type": "integer"
+      "schema": {
+        "properties": {
+          "foo": {
+            "type": "integer"
+          },
+          "bar": {
+            "$ref": "#/properties/foo"
+          }
+        },
+        "$id": "{properties:{foo:{type:integer},bar:{$ref:#/properties/foo}}}"
+      },
+      "referenced": {
+        "type": "integer"
+      }
     }
   },
   {
@@ -54,7 +78,20 @@
     },
     "ref": "#/prefixItems/0",
     "result": {
-      "type": "integer"
+      "schema": {
+        "prefixItems": [
+          {
+            "type": "integer"
+          },
+          {
+            "$ref": "#/prefixItems/0"
+          }
+        ],
+        "$id": "{prefixitems:[{type:integer},{$ref:#/prefixitems/0}]}"
+      },
+      "referenced": {
+        "type": "integer"
+      }
     }
   },
   {
@@ -86,7 +123,34 @@
     },
     "ref": "#/$defs/tilde~0field",
     "result": {
-      "type": "integer"
+      "schema": {
+        "$defs": {
+          "tilde~field": {
+            "type": "integer"
+          },
+          "slash/field": {
+            "type": "integer"
+          },
+          "percent%field": {
+            "type": "integer"
+          }
+        },
+        "properties": {
+          "tilde": {
+            "$ref": "#/$defs/tilde~0field"
+          },
+          "slash": {
+            "$ref": "#/$defs/slash~1field"
+          },
+          "percent": {
+            "$ref": "#/$defs/percent%25field"
+          }
+        },
+        "$id": "{$defs:{tilde~field:{type:integer},slash/field:{type:integer},percent%field:{type:integer}},properties:{tilde:{$ref:#/$defs/tilde~0field},slash:{$ref:#/$defs/slash~1field},percent:{$ref:#/$defs/percent%25field}}}"
+      },
+      "referenced": {
+        "type": "integer"
+      }
     }
   },
   {
@@ -118,7 +182,34 @@
     },
     "ref": "#/$defs/slash~1field",
     "result": {
-      "type": "integer"
+      "schema": {
+        "$defs": {
+          "tilde~field": {
+            "type": "integer"
+          },
+          "slash/field": {
+            "type": "integer"
+          },
+          "percent%field": {
+            "type": "integer"
+          }
+        },
+        "properties": {
+          "tilde": {
+            "$ref": "#/$defs/tilde~0field"
+          },
+          "slash": {
+            "$ref": "#/$defs/slash~1field"
+          },
+          "percent": {
+            "$ref": "#/$defs/percent%25field"
+          }
+        },
+        "$id": "{$defs:{tilde~field:{type:integer},slash/field:{type:integer},percent%field:{type:integer}},properties:{tilde:{$ref:#/$defs/tilde~0field},slash:{$ref:#/$defs/slash~1field},percent:{$ref:#/$defs/percent%25field}}}"
+      },
+      "referenced": {
+        "type": "integer"
+      }
     }
   },
   {
@@ -150,7 +241,34 @@
     },
     "ref": "#/$defs/percent%25field",
     "result": {
-      "type": "integer"
+      "schema": {
+        "$defs": {
+          "tilde~field": {
+            "type": "integer"
+          },
+          "slash/field": {
+            "type": "integer"
+          },
+          "percent%field": {
+            "type": "integer"
+          }
+        },
+        "properties": {
+          "tilde": {
+            "$ref": "#/$defs/tilde~0field"
+          },
+          "slash": {
+            "$ref": "#/$defs/slash~1field"
+          },
+          "percent": {
+            "$ref": "#/$defs/percent%25field"
+          }
+        },
+        "$id": "{$defs:{tilde~field:{type:integer},slash/field:{type:integer},percent%field:{type:integer}},properties:{tilde:{$ref:#/$defs/tilde~0field},slash:{$ref:#/$defs/slash~1field},percent:{$ref:#/$defs/percent%25field}}}"
+      },
+      "referenced": {
+        "type": "integer"
+      }
     }
   },
   {
@@ -172,7 +290,24 @@
     },
     "ref": "#/$defs/c",
     "result": {
-      "$ref": "#/$defs/b"
+      "schema": {
+        "$defs": {
+          "a": {
+            "type": "integer"
+          },
+          "b": {
+            "$ref": "#/$defs/a"
+          },
+          "c": {
+            "$ref": "#/$defs/b"
+          }
+        },
+        "$ref": "#/$defs/c",
+        "$id": "{$defs:{a:{type:integer},b:{$ref:#/$defs/a},c:{$ref:#/$defs/b}},$ref:#/$defs/c}"
+      },
+      "referenced": {
+        "$ref": "#/$defs/b"
+      }
     }
   },
   {
@@ -194,7 +329,24 @@
     },
     "ref": "#/$defs/a",
     "result": {
-      "type": "integer"
+      "schema": {
+        "$defs": {
+          "a": {
+            "type": "integer"
+          },
+          "b": {
+            "$ref": "#/$defs/a"
+          },
+          "c": {
+            "$ref": "#/$defs/b"
+          }
+        },
+        "$ref": "#/$defs/c",
+        "$id": "{$defs:{a:{type:integer},b:{$ref:#/$defs/a},c:{$ref:#/$defs/b}},$ref:#/$defs/c}"
+      },
+      "referenced": {
+        "type": "integer"
+      }
     }
   },
   {
@@ -216,7 +368,24 @@
     },
     "ref": "#/$defs/b",
     "result": {
-      "$ref": "#/$defs/a"
+      "schema": {
+        "$defs": {
+          "a": {
+            "type": "integer"
+          },
+          "b": {
+            "$ref": "#/$defs/a"
+          },
+          "c": {
+            "$ref": "#/$defs/b"
+          }
+        },
+        "$ref": "#/$defs/c",
+        "$id": "{$defs:{a:{type:integer},b:{$ref:#/$defs/a},c:{$ref:#/$defs/b}},$ref:#/$defs/c}"
+      },
+      "referenced": {
+        "$ref": "#/$defs/a"
+      }
     }
   },
   {
@@ -237,7 +406,23 @@
     },
     "ref": "#/$defs/reffed",
     "result": {
-      "type": "array"
+      "schema": {
+        "$defs": {
+          "reffed": {
+            "type": "array"
+          }
+        },
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/reffed",
+            "maxItems": 2
+          }
+        },
+        "$id": "{$defs:{reffed:{type:array}},properties:{foo:{$ref:#/$defs/reffed,maxitems:2}}}"
+      },
+      "referenced": {
+        "type": "array"
+      }
     }
   },
   {
@@ -248,76 +433,152 @@
     },
     "ref": "https://json-schema.org/draft/2020-12/schema",
     "result": {
-      "$id": "https://json-schema.org/draft/2020-12/schema",
-      "$vocabulary": {
-        "https://json-schema.org/draft/2020-12/vocab/core": true,
-        "https://json-schema.org/draft/2020-12/vocab/applicator": true,
-        "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
-        "https://json-schema.org/draft/2020-12/vocab/validation": true,
-        "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
-        "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
-        "https://json-schema.org/draft/2020-12/vocab/content": true
-      },
-      "$dynamicAnchor": "meta",
-      "title": "Core and Validation specifications meta-schema",
-      "allOf": [
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/core"
+      "schema": {
+        "$id": "https://json-schema.org/draft/2020-12/schema",
+        "$vocabulary": {
+          "https://json-schema.org/draft/2020-12/vocab/core": true,
+          "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+          "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+          "https://json-schema.org/draft/2020-12/vocab/validation": true,
+          "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+          "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+          "https://json-schema.org/draft/2020-12/vocab/content": true
         },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/applicator"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/unevaluated"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/validation"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/meta-data"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/format-annotation"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/content"
+        "$dynamicAnchor": "meta",
+        "title": "Core and Validation specifications meta-schema",
+        "allOf": [
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/applicator"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/unevaluated"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/validation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/meta-data"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/format-annotation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/content"
+          }
+        ],
+        "type": [
+          "object",
+          "boolean"
+        ],
+        "properties": {
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$dynamicRef": "#meta"
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "dependencies": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$dynamicRef": "#meta"
+                },
+                {
+                  "$ref": "https://json-schema.org/draft/2020-12/meta/validation#/$defs/stringArray"
+                }
+              ]
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "$recursiveAnchor": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/anchorString",
+            "deprecated": true
+          },
+          "$recursiveRef": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/uriReferenceString",
+            "deprecated": true
+          }
         }
-      ],
-      "type": [
-        "object",
-        "boolean"
-      ],
-      "properties": {
-        "definitions": {
-          "type": "object",
-          "additionalProperties": {
-            "$dynamicRef": "#meta"
+      },
+      "referenced": {
+        "$id": "https://json-schema.org/draft/2020-12/schema",
+        "$vocabulary": {
+          "https://json-schema.org/draft/2020-12/vocab/core": true,
+          "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+          "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+          "https://json-schema.org/draft/2020-12/vocab/validation": true,
+          "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+          "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+          "https://json-schema.org/draft/2020-12/vocab/content": true
+        },
+        "$dynamicAnchor": "meta",
+        "title": "Core and Validation specifications meta-schema",
+        "allOf": [
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core"
           },
-          "deprecated": true,
-          "default": {}
-        },
-        "dependencies": {
-          "type": "object",
-          "additionalProperties": {
-            "anyOf": [
-              {
-                "$dynamicRef": "#meta"
-              },
-              {
-                "$ref": "https://json-schema.org/draft/2020-12/meta/validation#/$defs/stringArray"
-              }
-            ]
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/applicator"
           },
-          "deprecated": true,
-          "default": {}
-        },
-        "$recursiveAnchor": {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/anchorString",
-          "deprecated": true
-        },
-        "$recursiveRef": {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/uriReferenceString",
-          "deprecated": true
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/unevaluated"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/validation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/meta-data"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/format-annotation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/content"
+          }
+        ],
+        "type": [
+          "object",
+          "boolean"
+        ],
+        "properties": {
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$dynamicRef": "#meta"
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "dependencies": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$dynamicRef": "#meta"
+                },
+                {
+                  "$ref": "https://json-schema.org/draft/2020-12/meta/validation#/$defs/stringArray"
+                }
+              ]
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "$recursiveAnchor": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/anchorString",
+            "deprecated": true
+          },
+          "$recursiveRef": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/uriReferenceString",
+            "deprecated": true
+          }
         }
       }
     }
@@ -339,7 +600,22 @@
     },
     "ref": "#/$defs/is-string",
     "result": {
-      "type": "string"
+      "schema": {
+        "properties": {
+          "$ref": {
+            "$ref": "#/$defs/is-string"
+          }
+        },
+        "$defs": {
+          "is-string": {
+            "type": "string"
+          }
+        },
+        "$id": "{properties:{$ref:{$ref:#/$defs/is-string}},$defs:{is-string:{type:string}}}"
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   },
   {
@@ -352,7 +628,16 @@
       "$id": "{$ref:#/$defs/bool,$defs:{bool:true}}"
     },
     "ref": "#/$defs/bool",
-    "result": true
+    "result": {
+      "schema": {
+        "$ref": "#/$defs/bool",
+        "$defs": {
+          "bool": true
+        },
+        "$id": "{$ref:#/$defs/bool,$defs:{bool:true}}"
+      },
+      "referenced": true
+    }
   },
   {
     "description": "$ref to boolean schema false",
@@ -364,7 +649,16 @@
       "$id": "{$ref:#/$defs/bool,$defs:{bool:false}}"
     },
     "ref": "#/$defs/bool",
-    "result": false
+    "result": {
+      "schema": {
+        "$ref": "#/$defs/bool",
+        "$defs": {
+          "bool": false
+        },
+        "$id": "{$ref:#/$defs/bool,$defs:{bool:false}}"
+      },
+      "referenced": false
+    }
   },
   {
     "description": "Recursive references between schemas",
@@ -406,19 +700,57 @@
     },
     "ref": "#/$defs/node",
     "result": {
-      "$id": "http://localhost:1234/draft2020-12/node",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "number"
+      "schema": {
+        "$id": "http://localhost:1234/draft2020-12/tree",
+        "type": "object",
+        "properties": {
+          "meta": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/node"
+            }
+          }
         },
-        "subtree": {
-          "$ref": "#"
+        "required": [
+          "meta",
+          "nodes"
+        ],
+        "$defs": {
+          "node": {
+            "$id": "http://localhost:1234/draft2020-12/node",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "subtree": {
+                "$ref": "#"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
         }
       },
-      "required": [
-        "value"
-      ]
+      "referenced": {
+        "$id": "http://localhost:1234/draft2020-12/node",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "subtree": {
+            "$ref": "#"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
     }
   },
   {
@@ -461,38 +793,76 @@
     },
     "ref": "#",
     "result": {
-      "$id": "http://localhost:1234/draft2020-12/tree",
-      "type": "object",
-      "properties": {
-        "meta": {
-          "type": "string"
+      "schema": {
+        "$id": "http://localhost:1234/draft2020-12/tree",
+        "type": "object",
+        "properties": {
+          "meta": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/node"
+            }
+          }
         },
-        "nodes": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/node"
+        "required": [
+          "meta",
+          "nodes"
+        ],
+        "$defs": {
+          "node": {
+            "$id": "http://localhost:1234/draft2020-12/node",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "subtree": {
+                "$ref": "#"
+              }
+            },
+            "required": [
+              "value"
+            ]
           }
         }
       },
-      "required": [
-        "meta",
-        "nodes"
-      ],
-      "$defs": {
-        "node": {
-          "$id": "http://localhost:1234/draft2020-12/node",
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "number"
-            },
-            "subtree": {
-              "$ref": "#"
-            }
+      "referenced": {
+        "$id": "http://localhost:1234/draft2020-12/tree",
+        "type": "object",
+        "properties": {
+          "meta": {
+            "type": "string"
           },
-          "required": [
-            "value"
-          ]
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/node"
+            }
+          }
+        },
+        "required": [
+          "meta",
+          "nodes"
+        ],
+        "$defs": {
+          "node": {
+            "$id": "http://localhost:1234/draft2020-12/node",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              },
+              "subtree": {
+                "$ref": "#"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
         }
       }
     }
@@ -514,7 +884,22 @@
     },
     "ref": "#/$defs/foo%22bar",
     "result": {
-      "type": "number"
+      "schema": {
+        "properties": {
+          "foo\"bar": {
+            "$ref": "#/$defs/foo%22bar"
+          }
+        },
+        "$defs": {
+          "foo\"bar": {
+            "type": "number"
+          }
+        },
+        "$id": "{properties:{foo\"bar:{$ref:#/$defs/foo%22bar}},$defs:{foo\"bar:{type:number}}}"
+      },
+      "referenced": {
+        "type": "number"
+      }
     }
   },
   {
@@ -535,7 +920,23 @@
     },
     "ref": "#/$defs/A",
     "result": {
-      "unevaluatedProperties": false
+      "schema": {
+        "$defs": {
+          "A": {
+            "unevaluatedProperties": false
+          }
+        },
+        "properties": {
+          "prop1": {
+            "type": "string"
+          }
+        },
+        "$ref": "#/$defs/A",
+        "$id": "{$defs:{a:{unevaluatedproperties:false}},properties:{prop1:{type:string}},$ref:#/$defs/a}"
+      },
+      "referenced": {
+        "unevaluatedProperties": false
+      }
     }
   },
   {
@@ -555,7 +956,22 @@
     },
     "ref": "#/$defs/a_string",
     "result": {
-      "type": "string"
+      "schema": {
+        "$defs": {
+          "a_string": {
+            "type": "string"
+          }
+        },
+        "enum": [
+          {
+            "$ref": "#/$defs/a_string"
+          }
+        ],
+        "$id": "{$defs:{a_string:{type:string}},enum:[{$ref:#/$defs/a_string}]}"
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   },
   {
@@ -581,17 +997,38 @@
     },
     "ref": "#/properties/foo",
     "result": {
-      "$id": "http://example.com/schema-relative-uri-defs2.json",
-      "$defs": {
-        "inner": {
-          "properties": {
-            "bar": {
-              "type": "string"
+      "schema": {
+        "$id": "http://example.com/schema-relative-uri-defs1.json",
+        "properties": {
+          "foo": {
+            "$id": "http://example.com/schema-relative-uri-defs2.json",
+            "$defs": {
+              "inner": {
+                "properties": {
+                  "bar": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "$ref": "#/properties/foo/$defs/inner"
+          }
+        },
+        "$ref": "#/properties/foo"
+      },
+      "referenced": {
+        "$id": "http://example.com/schema-relative-uri-defs2.json",
+        "$defs": {
+          "inner": {
+            "properties": {
+              "bar": {
+                "type": "string"
+              }
             }
           }
-        }
-      },
-      "$ref": "#/properties/foo/$defs/inner"
+        },
+        "$ref": "#/properties/foo/$defs/inner"
+      }
     }
   },
   {
@@ -617,9 +1054,30 @@
     },
     "ref": "#/properties/foo/$defs/inner",
     "result": {
-      "properties": {
-        "bar": {
-          "type": "string"
+      "schema": {
+        "$id": "http://example.com/schema-relative-uri-defs1.json",
+        "properties": {
+          "foo": {
+            "$id": "http://example.com/schema-relative-uri-defs2.json",
+            "$defs": {
+              "inner": {
+                "properties": {
+                  "bar": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "$ref": "#/properties/foo/$defs/inner"
+          }
+        },
+        "$ref": "#/properties/foo"
+      },
+      "referenced": {
+        "properties": {
+          "bar": {
+            "type": "string"
+          }
         }
       }
     }
@@ -647,17 +1105,38 @@
     },
     "ref": "#/properties/foo",
     "result": {
-      "$id": "http://example.com/schema-refs-absolute-uris-defs2.json",
-      "$defs": {
-        "inner": {
-          "properties": {
-            "bar": {
-              "type": "string"
+      "schema": {
+        "$id": "http://example.com/schema-refs-absolute-uris-defs1.json",
+        "properties": {
+          "foo": {
+            "$id": "http://example.com/schema-refs-absolute-uris-defs2.json",
+            "$defs": {
+              "inner": {
+                "properties": {
+                  "bar": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "$ref": "#/properties/foo/$defs/inner"
+          }
+        },
+        "$ref": "#/properties/foo"
+      },
+      "referenced": {
+        "$id": "http://example.com/schema-refs-absolute-uris-defs2.json",
+        "$defs": {
+          "inner": {
+            "properties": {
+              "bar": {
+                "type": "string"
+              }
             }
           }
-        }
-      },
-      "$ref": "#/properties/foo/$defs/inner"
+        },
+        "$ref": "#/properties/foo/$defs/inner"
+      }
     }
   },
   {
@@ -683,9 +1162,30 @@
     },
     "ref": "#/properties/foo/$defs/inner",
     "result": {
-      "properties": {
-        "bar": {
-          "type": "string"
+      "schema": {
+        "$id": "http://example.com/schema-refs-absolute-uris-defs1.json",
+        "properties": {
+          "foo": {
+            "$id": "http://example.com/schema-refs-absolute-uris-defs2.json",
+            "$defs": {
+              "inner": {
+                "properties": {
+                  "bar": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "$ref": "#/properties/foo/$defs/inner"
+          }
+        },
+        "$ref": "#/properties/foo"
+      },
+      "referenced": {
+        "properties": {
+          "bar": {
+            "type": "string"
+          }
         }
       }
     }
@@ -715,8 +1215,31 @@
     },
     "ref": "#/$defs/x/not/$defs/y",
     "result": {
-      "$id": "http://example.com/b/d.json",
-      "type": "number"
+      "schema": {
+        "$id": "http://example.com/a.json",
+        "$defs": {
+          "x": {
+            "$id": "http://example.com/b/c.json",
+            "not": {
+              "$defs": {
+                "y": {
+                  "$id": "http://example.com/b/d.json",
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "$ref": "#/$defs/x/not/$defs/y"
+          }
+        ]
+      },
+      "referenced": {
+        "$id": "http://example.com/b/d.json",
+        "type": "number"
+      }
     }
   },
   {
@@ -737,8 +1260,24 @@
     },
     "ref": "#/$defs/bigint",
     "result": {
-      "$id": "draft2020-12/ref-and-id1/int.json",
-      "maximum": 10
+      "schema": {
+        "$id": "/draft2020-12/ref-and-id1/base.json",
+        "$ref": "#/$defs/bigint",
+        "$defs": {
+          "bigint": {
+            "$id": "draft2020-12/ref-and-id1/int.json",
+            "maximum": 10
+          },
+          "smallint": {
+            "$id": "draft2020-12/draft2020-12/ref-and-id1-int.json",
+            "maximum": 2
+          }
+        }
+      },
+      "referenced": {
+        "$id": "draft2020-12/ref-and-id1/int.json",
+        "maximum": 10
+      }
     }
   },
   {
@@ -759,8 +1298,24 @@
     },
     "ref": "#/$defs/bigint",
     "result": {
-      "maximum": 10,
-      "$id": "/draft2020-12/ref-and-id2/base.json#bigint"
+      "schema": {
+        "$id": "/draft2020-12/ref-and-id2/base.json",
+        "$ref": "#/$defs/bigint",
+        "$defs": {
+          "bigint": {
+            "maximum": 10,
+            "$id": "/draft2020-12/ref-and-id2/base.json#bigint"
+          },
+          "smallint": {
+            "$id": "draft2020-12/draft2020-12/ref-and-id2#bigint",
+            "maximum": 2
+          }
+        }
+      },
+      "referenced": {
+        "maximum": 10,
+        "$id": "/draft2020-12/ref-and-id2/base.json#bigint"
+      }
     }
   },
   {
@@ -776,11 +1331,22 @@
     },
     "ref": "#",
     "result": {
-      "$id": "urn:uuid:deadbeef-1234-ffff-ffff-4321feebdaed",
-      "minimum": 30,
-      "properties": {
-        "foo": {
-          "$ref": "#"
+      "schema": {
+        "$id": "urn:uuid:deadbeef-1234-ffff-ffff-4321feebdaed",
+        "minimum": 30,
+        "properties": {
+          "foo": {
+            "$ref": "#"
+          }
+        }
+      },
+      "referenced": {
+        "$id": "urn:uuid:deadbeef-1234-ffff-ffff-4321feebdaed",
+        "minimum": 30,
+        "properties": {
+          "foo": {
+            "$ref": "#"
+          }
         }
       }
     }
@@ -802,7 +1368,22 @@
     },
     "ref": "#/$defs/bar",
     "result": {
-      "type": "string"
+      "schema": {
+        "$id": "urn:uuid:deadbeef-1234-00ff-ff00-4321feebdaed",
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/bar"
+          }
+        },
+        "$defs": {
+          "bar": {
+            "type": "string"
+          }
+        }
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   },
   {
@@ -822,7 +1403,22 @@
     },
     "ref": "#/$defs/bar",
     "result": {
-      "type": "string"
+      "schema": {
+        "$id": "urn:example:1/406/47452/2",
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/bar"
+          }
+        },
+        "$defs": {
+          "bar": {
+            "type": "string"
+          }
+        }
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   },
   {
@@ -842,7 +1438,22 @@
     },
     "ref": "#/$defs/bar",
     "result": {
-      "type": "string"
+      "schema": {
+        "$id": "urn:example:foo-bar-baz-qux?+CCResolve:cc=uk",
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/bar"
+          }
+        },
+        "$defs": {
+          "bar": {
+            "type": "string"
+          }
+        }
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   },
   {
@@ -862,7 +1473,22 @@
     },
     "ref": "#/$defs/bar",
     "result": {
-      "type": "string"
+      "schema": {
+        "$id": "urn:example:weather?=op=map&lat=39.56&lon=-104.85&datetime=1969-07-21T02:56:15Z",
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/bar"
+          }
+        },
+        "$defs": {
+          "bar": {
+            "type": "string"
+          }
+        }
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   },
   {
@@ -873,76 +1499,152 @@
     },
     "ref": "https://json-schema.org/draft/2020-12/schema",
     "result": {
-      "$id": "https://json-schema.org/draft/2020-12/schema",
-      "$vocabulary": {
-        "https://json-schema.org/draft/2020-12/vocab/core": true,
-        "https://json-schema.org/draft/2020-12/vocab/applicator": true,
-        "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
-        "https://json-schema.org/draft/2020-12/vocab/validation": true,
-        "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
-        "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
-        "https://json-schema.org/draft/2020-12/vocab/content": true
-      },
-      "$dynamicAnchor": "meta",
-      "title": "Core and Validation specifications meta-schema",
-      "allOf": [
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/core"
+      "schema": {
+        "$id": "https://json-schema.org/draft/2020-12/schema",
+        "$vocabulary": {
+          "https://json-schema.org/draft/2020-12/vocab/core": true,
+          "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+          "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+          "https://json-schema.org/draft/2020-12/vocab/validation": true,
+          "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+          "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+          "https://json-schema.org/draft/2020-12/vocab/content": true
         },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/applicator"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/unevaluated"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/validation"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/meta-data"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/format-annotation"
-        },
-        {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/content"
+        "$dynamicAnchor": "meta",
+        "title": "Core and Validation specifications meta-schema",
+        "allOf": [
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/applicator"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/unevaluated"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/validation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/meta-data"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/format-annotation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/content"
+          }
+        ],
+        "type": [
+          "object",
+          "boolean"
+        ],
+        "properties": {
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$dynamicRef": "#meta"
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "dependencies": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$dynamicRef": "#meta"
+                },
+                {
+                  "$ref": "https://json-schema.org/draft/2020-12/meta/validation#/$defs/stringArray"
+                }
+              ]
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "$recursiveAnchor": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/anchorString",
+            "deprecated": true
+          },
+          "$recursiveRef": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/uriReferenceString",
+            "deprecated": true
+          }
         }
-      ],
-      "type": [
-        "object",
-        "boolean"
-      ],
-      "properties": {
-        "definitions": {
-          "type": "object",
-          "additionalProperties": {
-            "$dynamicRef": "#meta"
+      },
+      "referenced": {
+        "$id": "https://json-schema.org/draft/2020-12/schema",
+        "$vocabulary": {
+          "https://json-schema.org/draft/2020-12/vocab/core": true,
+          "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+          "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+          "https://json-schema.org/draft/2020-12/vocab/validation": true,
+          "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+          "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+          "https://json-schema.org/draft/2020-12/vocab/content": true
+        },
+        "$dynamicAnchor": "meta",
+        "title": "Core and Validation specifications meta-schema",
+        "allOf": [
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core"
           },
-          "deprecated": true,
-          "default": {}
-        },
-        "dependencies": {
-          "type": "object",
-          "additionalProperties": {
-            "anyOf": [
-              {
-                "$dynamicRef": "#meta"
-              },
-              {
-                "$ref": "https://json-schema.org/draft/2020-12/meta/validation#/$defs/stringArray"
-              }
-            ]
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/applicator"
           },
-          "deprecated": true,
-          "default": {}
-        },
-        "$recursiveAnchor": {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/anchorString",
-          "deprecated": true
-        },
-        "$recursiveRef": {
-          "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/uriReferenceString",
-          "deprecated": true
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/unevaluated"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/validation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/meta-data"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/format-annotation"
+          },
+          {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/content"
+          }
+        ],
+        "type": [
+          "object",
+          "boolean"
+        ],
+        "properties": {
+          "definitions": {
+            "type": "object",
+            "additionalProperties": {
+              "$dynamicRef": "#meta"
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "dependencies": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "$dynamicRef": "#meta"
+                },
+                {
+                  "$ref": "https://json-schema.org/draft/2020-12/meta/validation#/$defs/stringArray"
+                }
+              ]
+            },
+            "deprecated": true,
+            "default": {}
+          },
+          "$recursiveAnchor": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/anchorString",
+            "deprecated": true
+          },
+          "$recursiveRef": {
+            "$ref": "https://json-schema.org/draft/2020-12/meta/core#/$defs/uriReferenceString",
+            "deprecated": true
+          }
         }
       }
     }
@@ -953,7 +1655,7 @@
       "$id": "urn:uuid:deadbeef-1234-0000-0000-4321feebdaed",
       "properties": {
         "foo": {
-          "$ref": "##/$defs/bar"
+          "$ref": "#/$defs/bar"
         }
       },
       "$defs": {
@@ -962,7 +1664,25 @@
         }
       }
     },
-    "ref": "##/$defs/bar"
+    "ref": "#/$defs/bar",
+    "result": {
+      "schema": {
+        "$id": "urn:uuid:deadbeef-1234-0000-0000-4321feebdaed",
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/bar"
+          }
+        },
+        "$defs": {
+          "bar": {
+            "type": "string"
+          }
+        }
+      },
+      "referenced": {
+        "type": "string"
+      }
+    }
   },
   {
     "description": "URN base URI with URN and anchor ref",
@@ -982,8 +1702,24 @@
     },
     "ref": "#/$defs/bar",
     "result": {
-      "type": "string",
-      "$id": "urn:uuid:deadbeef-1234-ff00-00ff-4321feebdaed#something"
+      "schema": {
+        "$id": "urn:uuid:deadbeef-1234-ff00-00ff-4321feebdaed",
+        "properties": {
+          "foo": {
+            "$ref": "#/$defs/bar"
+          }
+        },
+        "$defs": {
+          "bar": {
+            "type": "string",
+            "$id": "urn:uuid:deadbeef-1234-ff00-00ff-4321feebdaed#something"
+          }
+        }
+      },
+      "referenced": {
+        "type": "string",
+        "$id": "urn:uuid:deadbeef-1234-ff00-00ff-4321feebdaed#something"
+      }
     }
   },
   {
@@ -1005,13 +1741,30 @@
     },
     "ref": "#/$defs/foo",
     "result": {
-      "$id": "urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed",
-      "$defs": {
-        "bar": {
-          "type": "string"
-        }
+      "schema": {
+        "$ref": "#/$defs/foo",
+        "$defs": {
+          "foo": {
+            "$id": "urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed",
+            "$defs": {
+              "bar": {
+                "type": "string"
+              }
+            },
+            "$ref": "#/$defs/foo/$defs/bar"
+          }
+        },
+        "$id": "{$ref:#/$defs/foo,$defs:{foo:{$id:urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed,$defs:{bar:{type:string}},$ref:#/$defs/foo/$defs/bar}}}"
       },
-      "$ref": "#/$defs/foo/$defs/bar"
+      "referenced": {
+        "$id": "urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed",
+        "$defs": {
+          "bar": {
+            "type": "string"
+          }
+        },
+        "$ref": "#/$defs/foo/$defs/bar"
+      }
     }
   },
   {
@@ -1033,7 +1786,24 @@
     },
     "ref": "#/$defs/foo/$defs/bar",
     "result": {
-      "type": "string"
+      "schema": {
+        "$ref": "#/$defs/foo",
+        "$defs": {
+          "foo": {
+            "$id": "urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed",
+            "$defs": {
+              "bar": {
+                "type": "string"
+              }
+            },
+            "$ref": "#/$defs/foo/$defs/bar"
+          }
+        },
+        "$id": "{$ref:#/$defs/foo,$defs:{foo:{$id:urn:uuid:deadbeef-4321-ffff-ffff-1234feebdaed,$defs:{bar:{type:string}},$ref:#/$defs/foo/$defs/bar}}}"
+      },
+      "referenced": {
+        "type": "string"
+      }
     }
   }
 ]

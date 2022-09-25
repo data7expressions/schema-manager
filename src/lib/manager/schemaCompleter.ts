@@ -105,6 +105,9 @@ export class SchemaCompleter implements ISchemaCompleter {
 				const schema = pathById === '#' ? root : Helper.jsonPath(root, pathById)
 				const pathByAnchor = this.findInternalRef(schema, schema, '', '#' + parts[1])
 				if (pathByAnchor) {
+					if (pathById === '#' && pathByAnchor.startsWith('#')) {
+						return pathByAnchor
+					}
 					return pathById + pathByAnchor
 				} else {
 					throw new Error(`Anchor ${parts[1]} in ${pathById}  not found`)
