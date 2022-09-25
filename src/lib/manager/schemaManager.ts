@@ -84,12 +84,8 @@ export class SchemaManager implements ISchemaManager {
 		return schema
 	}
 
-	public get (key: string) : Schema {
-		const schema = this.schemas[key] as Schema | undefined
-		if (!schema) {
-			throw Error(`The schema ${key} not found`)
-		}
-		return schema
+	public get (key: string) : Schema | undefined {
+		return this.schemas[key] as Schema | undefined
 	}
 
 	public list () : Schema[] {
@@ -114,7 +110,11 @@ export class SchemaManager implements ISchemaManager {
 			return value
 		}
 		if (typeof value === 'string') {
-			return this.get(value)
+			const schema = this.get(value)
+			if (schema === undefined) {
+				throw new Error(`Schema ${value} not found`)
+			}
+			return schema
 		}
 		if (value as Schema === undefined) {
 			throw new Error('Parameter value is invalid')
@@ -133,7 +133,10 @@ export class SchemaManager implements ISchemaManager {
 		const isExternal = externalRefs.length > 0 && externalRefs.includes(ref)
 		if (isExternal) {
 			const keys = ref.split('#')
-			const externalSchema = this.schemas[keys[0]]
+			const externalSchema = this.get(keys[0])
+			if (externalSchema === undefined) {
+				throw new Error(`Schema ${keys[0]} not found`)
+			}
 			if (keys.length === 1 || keys[1] === '/') {
 				return externalSchema
 			} else {

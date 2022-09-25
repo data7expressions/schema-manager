@@ -13,7 +13,7 @@ export const load = async (value: string|Schema): Promise<Schema[]> => {
 	return schemas.load(value)
 }
 
-export const get = (key: string): Schema => {
+export const get = (key: string): Schema | undefined => {
 	return schemas.get(key)
 }
 

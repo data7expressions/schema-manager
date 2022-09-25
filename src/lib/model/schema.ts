@@ -26,7 +26,7 @@ export interface ISchemaLoader {
 export interface ISchemaManager{
 	add (value: Schema): Schema
 	load (value: string|Schema): Promise<Schema[]>
-	get (key: string): Schema
+	get (key: string) : Schema | undefined
 	list () : Schema[]
 	solve (value: string|Schema) : Schema
 	normalize (source: Schema): Schema
