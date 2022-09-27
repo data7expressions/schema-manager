@@ -3,7 +3,7 @@ import { Helper } from '.'
 
 export class SchemaLoader implements ISchemaLoader {
 	public async load (uri:string): Promise<Schema> {
-		const content = await Helper.get(uri)
-		return Helper.tryParse(content) as Schema
+		const content = await Helper.http.get(uri)
+		return Helper.utils.tryParse(content) as Schema
 	}
 }

@@ -27,7 +27,7 @@ export class SchemaExtender implements ISchemaExtender {
 				this.extendDef(base, defs)
 			}
 			// extend
-			Helper.extends(def, base)
+			Helper.obj.extends(def, base)
 		}
 		// remove since it was already extended
 		if (def.$extends) {

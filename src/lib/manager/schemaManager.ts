@@ -53,7 +53,7 @@ export class SchemaManager implements ISchemaManager {
 			}
 			schema = this.normalize(value)
 			if (schema.$id === undefined || typeof schema.$id !== 'string') {
-				schema.$id = Helper.createKey(schema)
+				schema.$id = Helper.obj.createKey(schema)
 			}
 			this.schemas[schema.$id] = schema
 		}
@@ -79,7 +79,7 @@ export class SchemaManager implements ISchemaManager {
 			throw new Error(`External refs ${externalRefs.join(',')} were not previously loaded`)
 		}
 		if (schema.$id === undefined || typeof schema.$id !== 'string') {
-			schema.$id = Helper.createKey(schema)
+			schema.$id = Helper.obj.createKey(schema)
 		}
 		this.schemas[schema.$id] = schema
 		return schema
@@ -100,7 +100,7 @@ export class SchemaManager implements ISchemaManager {
 		if (typeof source !== 'object') {
 			return source
 		}
-		const schema = Helper.clone(source)
+		const schema = Helper.obj.clone(source)
 		this.extender.extend(schema)
 		this.completer.complete(schema)
 		return schema
@@ -142,29 +142,29 @@ export class SchemaManager implements ISchemaManager {
 				return { schema: externalSchema, referenced: externalSchema }
 			} else {
 				const path = keys[1].startsWith('/') ? keys[1].replace('/', '') : keys[1]
-				const referenced = Helper.jsonPath(externalSchema, path)
+				const referenced = Helper.obj.jsonPath(externalSchema, path)
 				return { schema: externalSchema, referenced: referenced }
 			}
 		} else if (ref === '#') {
 			return { schema: schema, referenced: schema }
 		} else {
 			const path = ref.startsWith('#/') ? ref.replace('#/', '') : ref
-			const referenced = Helper.jsonPath(schema, path)
+			const referenced = Helper.obj.jsonPath(schema, path)
 			return { schema: schema, referenced: referenced }
 		}
 	}
 
 	public refs (schema: Schema):string[] {
-		return Helper.findAllInObject(schema, (value:any):boolean => {
+		return Helper.obj.findAllInObject(schema, (value:any):boolean => {
 			return value.$ref !== undefined && typeof value.$ref === 'string'
 		}).map(p => p.$ref as string)
 	}
 
 	public externalRefs (schema: Schema):string[] {
-		const ids = Helper.findAllInObject(schema, (value:any):boolean => {
+		const ids = Helper.obj.findAllInObject(schema, (value:any):boolean => {
 			return value.$id !== undefined && typeof value.$id === 'string' && value.$id.startsWith('http')
 		}).map(p => p.$id)
-		const refs = Helper.findAllInObject(schema, (value:any):boolean => {
+		const refs = Helper.obj.findAllInObject(schema, (value:any):boolean => {
 			return value.$ref !== undefined && typeof value.$ref === 'string' && value.$ref.startsWith('http')
 		}).map(p => p.$ref)
 		return refs.filter(p => !ids.includes(p))

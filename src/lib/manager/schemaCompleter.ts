@@ -53,7 +53,7 @@ export class SchemaCompleter implements ISchemaCompleter {
 			} else if (id === parentId) {
 				_id = id
 			} else if (id && parentId !== undefined) {
-				_id = Helper.urlJoin(parentId, id)
+				_id = Helper.http.urlJoin(parentId, id)
 			} else {
 				_id = id
 			}
@@ -102,7 +102,7 @@ export class SchemaCompleter implements ISchemaCompleter {
 			const parts = current.$ref.split('#')
 			const pathById = this.schemaPathById(root, parts[0], '#')
 			if (pathById) {
-				const schema = pathById === '#' ? root : Helper.jsonPath(root, pathById)
+				const schema = pathById === '#' ? root : Helper.obj.jsonPath(root, pathById)
 				const pathByAnchor = this.findInternalRef(schema, schema, '', '#' + parts[1])
 				if (pathByAnchor) {
 					if (pathById === '#' && pathByAnchor.startsWith('#')) {
@@ -121,7 +121,7 @@ export class SchemaCompleter implements ISchemaCompleter {
 			// ref:  schema-refs-absolute-uris-defs2.json
 			// ref2: http://example.com/schema-refs-absolute-uris-defs2.json
 			if (parentId) {
-				const _ref = Helper.urlJoin(parentId, current.$ref)
+				const _ref = Helper.http.urlJoin(parentId, current.$ref)
 				const found = this.schemaPathById(root, _ref, '#')
 				if (found) {
 					return found + '#' + parts[1]
@@ -137,7 +137,7 @@ export class SchemaCompleter implements ISchemaCompleter {
 			return current.$ref
 		}
 		if (parentId) {
-			const ref = Helper.urlJoin(parentId, current.$ref)
+			const ref = Helper.http.urlJoin(parentId, current.$ref)
 			// busca si el uri es un id dentro del current schema
 			let found = this.schemaPathById(current, ref, '#')
 			if (found) {
@@ -246,7 +246,7 @@ export class SchemaCompleter implements ISchemaCompleter {
 		if (ref === '#' || source.$id === ref) {
 			return source
 		} else if (ref.startsWith('#/')) {
-			return Helper.jsonPath(source, ref.replace('#/', ''))
+			return Helper.obj.jsonPath(source, ref.replace('#/', ''))
 		} else {
 			return undefined
 		}
