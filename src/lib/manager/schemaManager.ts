@@ -155,16 +155,16 @@ export class SchemaManager implements ISchemaManager {
 	}
 
 	public refs (schema: Schema):string[] {
-		return Helper.obj.findAllInObject(schema, (value:any):boolean => {
+		return Helper.obj.filter(schema, (value:any):boolean => {
 			return value.$ref !== undefined && typeof value.$ref === 'string'
 		}).map(p => p.$ref as string)
 	}
 
 	public externalRefs (schema: Schema):string[] {
-		const ids = Helper.obj.findAllInObject(schema, (value:any):boolean => {
+		const ids = Helper.obj.filter(schema, (value:any):boolean => {
 			return value.$id !== undefined && typeof value.$id === 'string' && value.$id.startsWith('http')
 		}).map(p => p.$id)
-		const refs = Helper.obj.findAllInObject(schema, (value:any):boolean => {
+		const refs = Helper.obj.filter(schema, (value:any):boolean => {
 			return value.$ref !== undefined && typeof value.$ref === 'string' && value.$ref.startsWith('http')
 		}).map(p => p.$ref)
 		return refs.filter(p => !ids.includes(p))

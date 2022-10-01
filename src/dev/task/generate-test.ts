@@ -46,7 +46,7 @@ const createContentTest = (name:string, test:string) => {
 
 const createTest = async (name:string, func: (data:any) => string, exclude:string[] = []) :Promise<void> => {
 	const file = `./src/dev/data4Test/${name}.json`
-	const content = await Helper.fs.readFile(file)
+	const content = await Helper.fs.read(file)
 	if (content === null) {
 		throw new Error(`file ${file} not found`)
 	}
@@ -58,7 +58,7 @@ const createTest = async (name:string, func: (data:any) => string, exclude:strin
 		}
 	}
 	const contentTest = createContentTest(name, target.join('\n'))
-	await Helper.fs.writeFile(`./src/test/__tests__/${name}.test.ts`, contentTest)
+	await Helper.fs.write(`./src/test/__tests__/${name}.test.ts`, contentTest)
 }
 
 (async () => {

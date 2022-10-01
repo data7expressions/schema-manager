@@ -27,7 +27,7 @@
 		"doc": "grunt doc"
 	},
 	"dependencies": {
-		"h3lp": "^0.1.8"
+		"h3lp": "^0.2.0"
 	},
 	"devDependencies": {
 		"@types/glob": "^8.0.0",
