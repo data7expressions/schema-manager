@@ -1,4 +1,4 @@
-import { schemas } from '../../lib'
+import { schemas } from '../../'
 	describe('load', () => {
 		
 	test('root pointer ref', async () => {

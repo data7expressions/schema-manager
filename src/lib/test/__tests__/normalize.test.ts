@@ -1,4 +1,4 @@
-import { schemas } from '../../lib'
+import { schemas } from '../../'
 	describe('normalize', () => {
 		
 	test('root pointer ref', () => {

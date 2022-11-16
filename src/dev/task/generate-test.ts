@@ -4,7 +4,7 @@ import { Helper } from '../../lib'
 const createNormalizeTest = (data:any) => {
 	return `
 	test('${data.description}', () => {
-    const source = JSON.parse('${Helper.string.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
+    const source = JSON.parse('${Helper.str.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
     const expected = '${JSON.stringify(data.result)}'
     const target = JSON.stringify(schemas.normalize(source))
     expect(expected).toBe(target)
@@ -14,31 +14,15 @@ const createNormalizeTest = (data:any) => {
 const createLoadTest = (data:any) => {
 	return `
 	test('${data.description}', async () => {
-    const source = JSON.parse('${Helper.string.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
+    const source = JSON.parse('${Helper.str.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
     const expected = '${JSON.stringify(data.result)}'
     const target = JSON.stringify(await schemas.load(source))
     expect(expected).toBe(target)
   })`
 }
 
-// const createRefTest = (data:any) => {
-// const list:string[] = []
-// const refs = schemas.refs(data.schema)
-// for (const ref of refs) {
-// list.push(`
-// test('${data.description} ${ref}', async () => {
-// const schema = JSON.parse('${Helper.replace(JSON.stringify(data.schema), '\'', '\\\'')}')
-// const ref = '${ref}'
-// const expected = '${JSON.stringify(data.result)}'
-// const target = JSON.stringify(schemas.solveRef(schema, ref))
-// expect(expected).toBe(target)
-// })`)
-// }
-// return list.join('\n')
-// }
-
 const createContentTest = (name:string, test:string) => {
-	return `import { schemas } from '../../lib'
+	return `import { schemas } from '../../'
 	describe('${name}', () => {
 		${test}
 	})`
@@ -58,7 +42,7 @@ const createTest = async (name:string, func: (data:any) => string, exclude:strin
 		}
 	}
 	const contentTest = createContentTest(name, target.join('\n'))
-	await Helper.fs.write(`./src/test/__tests__/${name}.test.ts`, contentTest)
+	await Helper.fs.write(`./src/lib/test/__tests__/${name}.test.ts`, contentTest)
 }
 
 (async () => {
