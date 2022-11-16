@@ -13,14 +13,14 @@ import { schemas as schemaManager, Helper } from '../../lib'
 		const source = Helper.utils.tryParse(content)
 		for (const _case of source) {
 			const result = schemaManager.normalize(_case.schema)
-			target.push({ description: _case.description, schema: _case.schema, result: result })
+			target.push({ description: _case.description, schema: _case.schema, result })
 		}
 		await Helper.fs.write('./src/dev/data4Test/normalize.json', JSON.stringify(target, null, 2))
 
 		target = []
 		for (const _case of source) {
 			const result = await schemaManager.load(_case.schema)
-			target.push({ description: _case.description, schema: _case.schema, result: result })
+			target.push({ description: _case.description, schema: _case.schema, result })
 		}
 		await Helper.fs.write('./src/dev/data4Test/load.json', JSON.stringify(target, null, 2))
 
@@ -30,7 +30,7 @@ import { schemas as schemaManager, Helper } from '../../lib'
 			const refs = schemaManager.refs(schema)
 			for (const ref of refs) {
 				const result = schemaManager.solveRef(schema, ref)
-				target2.push({ description: p.description, schema: schema, ref: ref, result: result })
+				target2.push({ description: p.description, schema, ref, result })
 			}
 		}
 		await Helper.fs.write('./src/dev/data4Test/ref.json', JSON.stringify(target2, null, 2))

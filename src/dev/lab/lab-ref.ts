@@ -19,7 +19,7 @@ import { schemas as schemaManager, Helper, Schema } from '../../lib'
 			const refs = schemaManager.refs(schema)
 			for (const ref of refs) {
 				const result = schemaManager.solveRef(schema, ref)
-				target.push({ schema: schema, ref: ref, result: result })
+				target.push({ schema, ref, result })
 			}
 		}
 		await Helper.fs.write('./src/dev/lab/refs.json', JSON.stringify(target, null, 2))

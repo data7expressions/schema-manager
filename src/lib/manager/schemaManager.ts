@@ -143,14 +143,14 @@ export class SchemaManager implements ISchemaManager {
 			} else {
 				const path = keys[1].startsWith('/') ? keys[1].replace('/', '') : keys[1]
 				const referenced = Helper.obj.jsonPath(externalSchema, path)
-				return { schema: externalSchema, referenced: referenced }
+				return { schema: externalSchema, referenced }
 			}
 		} else if (ref === '#') {
-			return { schema: schema, referenced: schema }
+			return { schema, referenced: schema }
 		} else {
 			const path = ref.startsWith('#/') ? ref.replace('#/', '') : ref
 			const referenced = Helper.obj.jsonPath(schema, path)
-			return { schema: schema, referenced: referenced }
+			return { schema, referenced }
 		}
 	}
 
