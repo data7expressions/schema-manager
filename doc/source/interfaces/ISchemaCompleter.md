@@ -26,4 +26,4 @@
 
 #### Defined in
 
-[model/schema.ts:18](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/model/schema.ts#L18)
+[model/schema.ts:18](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L18)

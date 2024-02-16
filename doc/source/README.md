@@ -38,7 +38,7 @@ schema-manager
 
 #### Defined in
 
-[manager/index.ts:2](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/manager/index.ts#L2)
+[manager/index.ts:2](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/manager/index.ts#L2)
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 #### Defined in
 
-[index.ts:6](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L6)
+[index.ts:6](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L6)
 
 ## Functions
 
@@ -68,7 +68,7 @@ ___
 
 #### Defined in
 
-[index.ts:8](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L8)
+[index.ts:8](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L8)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[index.ts:36](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L36)
+[index.ts:36](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L36)
 
 ___
 
@@ -108,7 +108,7 @@ ___
 
 #### Defined in
 
-[index.ts:16](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L16)
+[index.ts:16](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L16)
 
 ___
 
@@ -122,7 +122,7 @@ ___
 
 #### Defined in
 
-[index.ts:20](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L20)
+[index.ts:20](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L20)
 
 ___
 
@@ -142,7 +142,7 @@ ___
 
 #### Defined in
 
-[index.ts:12](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L12)
+[index.ts:12](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L12)
 
 ___
 
@@ -162,7 +162,7 @@ ___
 
 #### Defined in
 
-[index.ts:28](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L28)
+[index.ts:28](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L28)
 
 ___
 
@@ -182,7 +182,7 @@ ___
 
 #### Defined in
 
-[index.ts:32](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L32)
+[index.ts:32](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L32)
 
 ___
 
@@ -202,7 +202,7 @@ ___
 
 #### Defined in
 
-[index.ts:24](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L24)
+[index.ts:24](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L24)
 
 ___
 
@@ -223,4 +223,4 @@ ___
 
 #### Defined in
 
-[index.ts:40](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/index.ts#L40)
+[index.ts:40](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/index.ts#L40)

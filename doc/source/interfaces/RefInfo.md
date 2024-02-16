@@ -17,7 +17,7 @@
 
 #### Defined in
 
-[model/schema.ts:14](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/model/schema.ts#L14)
+[model/schema.ts:14](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L14)
 
 ___
 
@@ -27,4 +27,4 @@ ___
 
 #### Defined in
 
-[model/schema.ts:13](https://github.com/data7expressions/schema-manager/blob/320efed/src/lib/model/schema.ts#L13)
+[model/schema.ts:13](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L13)
