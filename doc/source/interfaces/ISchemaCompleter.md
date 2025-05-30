@@ -1,29 +1,27 @@
+[**schema-manager**](../README.md)
+
+***
+
 [schema-manager](../README.md) / ISchemaCompleter
 
 # Interface: ISchemaCompleter
 
-## Table of contents
-
-### Methods
-
-- [complete](ISchemaCompleter.md#complete)
+Defined in: [model/schema.ts:17](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L17)
 
 ## Methods
 
-### complete
+### complete()
 
-▸ **complete**(`schema`): `void`
+> **complete**(`schema`): `void`
+
+Defined in: [model/schema.ts:18](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L18)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](Schema.md) |
+##### schema
+
+[`Schema`](Schema.md)
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[model/schema.ts:18](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L18)

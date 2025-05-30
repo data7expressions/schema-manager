@@ -1,29 +1,27 @@
+[**schema-manager**](../README.md)
+
+***
+
 [schema-manager](../README.md) / ISchemaExtender
 
 # Interface: ISchemaExtender
 
-## Table of contents
-
-### Methods
-
-- [extend](ISchemaExtender.md#extend)
+Defined in: [model/schema.ts:20](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L20)
 
 ## Methods
 
-### extend
+### extend()
 
-▸ **extend**(`schema`): `void`
+> **extend**(`schema`): `void`
+
+Defined in: [model/schema.ts:21](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L21)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](Schema.md) |
+##### schema
+
+[`Schema`](Schema.md)
 
 #### Returns
 
 `void`
-
-#### Defined in
-
-[model/schema.ts:21](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L21)

@@ -1,192 +1,169 @@
+[**schema-manager**](../README.md)
+
+***
+
 [schema-manager](../README.md) / ISchemaManager
 
 # Interface: ISchemaManager
 
-## Table of contents
-
-### Methods
-
-- [add](ISchemaManager.md#add)
-- [externalRefs](ISchemaManager.md#externalrefs)
-- [get](ISchemaManager.md#get)
-- [list](ISchemaManager.md#list)
-- [load](ISchemaManager.md#load)
-- [normalize](ISchemaManager.md#normalize)
-- [refs](ISchemaManager.md#refs)
-- [solve](ISchemaManager.md#solve)
-- [solveRef](ISchemaManager.md#solveref)
+Defined in: [model/schema.ts:27](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L27)
 
 ## Methods
 
-### add
+### add()
 
-▸ **add**(`value`): [`Schema`](Schema.md)
+> **add**(`value`): [`Schema`](Schema.md)
+
+Defined in: [model/schema.ts:28](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L28)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | [`Schema`](Schema.md) |
+##### value
+
+[`Schema`](Schema.md)
 
 #### Returns
 
 [`Schema`](Schema.md)
 
-#### Defined in
+***
 
-[model/schema.ts:28](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L28)
+### externalRefs()
 
-___
+> **externalRefs**(`schema`): `string`[]
 
-### externalRefs
-
-▸ **externalRefs**(`schema`): `string`[]
+Defined in: [model/schema.ts:35](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L35)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](Schema.md) |
+##### schema
+
+[`Schema`](Schema.md)
 
 #### Returns
 
 `string`[]
 
-#### Defined in
+***
 
-[model/schema.ts:35](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L35)
+### get()
 
-___
+> **get**(`key`): `undefined` \| [`Schema`](Schema.md)
 
-### get
-
-▸ **get**(`key`): `undefined` \| [`Schema`](Schema.md)
+Defined in: [model/schema.ts:30](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L30)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `key` | `string` |
+##### key
+
+`string`
 
 #### Returns
 
 `undefined` \| [`Schema`](Schema.md)
 
-#### Defined in
+***
 
-[model/schema.ts:30](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L30)
+### list()
 
-___
+> **list**(): [`Schema`](Schema.md)[]
 
-### list
-
-▸ **list**(): [`Schema`](Schema.md)[]
+Defined in: [model/schema.ts:31](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L31)
 
 #### Returns
 
 [`Schema`](Schema.md)[]
 
-#### Defined in
+***
 
-[model/schema.ts:31](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L31)
+### load()
 
-___
+> **load**(`value`): `Promise`\<[`Schema`](Schema.md)[]\>
 
-### load
-
-▸ **load**(`value`): `Promise`\<[`Schema`](Schema.md)[]\>
+Defined in: [model/schema.ts:29](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L29)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` \| [`Schema`](Schema.md) |
+##### value
+
+`string` | [`Schema`](Schema.md)
 
 #### Returns
 
 `Promise`\<[`Schema`](Schema.md)[]\>
 
-#### Defined in
+***
 
-[model/schema.ts:29](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L29)
+### normalize()
 
-___
+> **normalize**(`source`): [`Schema`](Schema.md)
 
-### normalize
-
-▸ **normalize**(`source`): [`Schema`](Schema.md)
+Defined in: [model/schema.ts:33](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L33)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `source` | [`Schema`](Schema.md) |
+##### source
+
+[`Schema`](Schema.md)
 
 #### Returns
 
 [`Schema`](Schema.md)
 
-#### Defined in
+***
 
-[model/schema.ts:33](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L33)
+### refs()
 
-___
+> **refs**(`schema`): `string`[]
 
-### refs
-
-▸ **refs**(`schema`): `string`[]
+Defined in: [model/schema.ts:34](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L34)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](Schema.md) |
+##### schema
+
+[`Schema`](Schema.md)
 
 #### Returns
 
 `string`[]
 
-#### Defined in
+***
 
-[model/schema.ts:34](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L34)
+### solve()
 
-___
+> **solve**(`value`): [`Schema`](Schema.md)
 
-### solve
-
-▸ **solve**(`value`): [`Schema`](Schema.md)
+Defined in: [model/schema.ts:32](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L32)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `value` | `string` \| [`Schema`](Schema.md) |
+##### value
+
+`string` | [`Schema`](Schema.md)
 
 #### Returns
 
 [`Schema`](Schema.md)
 
-#### Defined in
+***
 
-[model/schema.ts:32](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L32)
+### solveRef()
 
-___
+> **solveRef**(`schema`, `ref`): [`RefInfo`](RefInfo.md)
 
-### solveRef
-
-▸ **solveRef**(`schema`, `ref`): [`RefInfo`](RefInfo.md)
+Defined in: [model/schema.ts:36](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L36)
 
 #### Parameters
 
-| Name | Type |
-| :------ | :------ |
-| `schema` | [`Schema`](Schema.md) |
-| `ref` | `string` |
+##### schema
+
+[`Schema`](Schema.md)
+
+##### ref
+
+`string`
 
 #### Returns
 
 [`RefInfo`](RefInfo.md)
-
-#### Defined in
-
-[model/schema.ts:36](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L36)

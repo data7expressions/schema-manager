@@ -1,74 +1,57 @@
+[**schema-manager**](../README.md)
+
+***
+
 [schema-manager](../README.md) / Schema
 
 # Interface: Schema
 
-## Table of contents
-
-### Properties
-
-- [$anchor](Schema.md#$anchor)
-- [$defs](Schema.md#$defs)
-- [$extends](Schema.md#$extends)
-- [$id](Schema.md#$id)
-- [$ref](Schema.md#$ref)
-- [$schema](Schema.md#$schema)
+Defined in: [model/schema.ts:1](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L1)
 
 ## Properties
 
-### $anchor
+### $anchor?
 
-• `Optional` **$anchor**: `string`
+> `optional` **$anchor**: `string`
 
-#### Defined in
+Defined in: [model/schema.ts:3](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L3)
 
-[model/schema.ts:3](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L3)
-
-___
+***
 
 ### $defs
 
-• **$defs**: `any`
+> **$defs**: `any`
 
-#### Defined in
+Defined in: [model/schema.ts:7](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L7)
 
-[model/schema.ts:7](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L7)
+***
 
-___
+### $extends?
 
-### $extends
+> `optional` **$extends**: `string`
 
-• `Optional` **$extends**: `string`
+Defined in: [model/schema.ts:5](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L5)
 
-#### Defined in
+***
 
-[model/schema.ts:5](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L5)
+### $id?
 
-___
+> `optional` **$id**: `string`
 
-### $id
+Defined in: [model/schema.ts:2](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L2)
 
-• `Optional` **$id**: `string`
+***
 
-#### Defined in
+### $ref?
 
-[model/schema.ts:2](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L2)
+> `optional` **$ref**: `string`
 
-___
+Defined in: [model/schema.ts:9](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L9)
 
-### $ref
+***
 
-• `Optional` **$ref**: `string`
+### $schema?
 
-#### Defined in
+> `optional` **$schema**: `string`
 
-[model/schema.ts:9](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L9)
-
-___
-
-### $schema
-
-• `Optional` **$schema**: `string`
-
-#### Defined in
-
-[model/schema.ts:4](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L4)
+Defined in: [model/schema.ts:4](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L4)

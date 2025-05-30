@@ -1,30 +1,25 @@
+[**schema-manager**](../README.md)
+
+***
+
 [schema-manager](../README.md) / RefInfo
 
 # Interface: RefInfo
 
-## Table of contents
-
-### Properties
-
-- [referenced](RefInfo.md#referenced)
-- [schema](RefInfo.md#schema)
+Defined in: [model/schema.ts:12](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L12)
 
 ## Properties
 
 ### referenced
 
-• **referenced**: [`Schema`](Schema.md)
+> **referenced**: [`Schema`](Schema.md)
 
-#### Defined in
+Defined in: [model/schema.ts:14](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L14)
 
-[model/schema.ts:14](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L14)
-
-___
+***
 
 ### schema
 
-• **schema**: [`Schema`](Schema.md)
+> **schema**: [`Schema`](Schema.md)
 
-#### Defined in
-
-[model/schema.ts:13](https://github.com/data7expressions/schema-manager/blob/57bfcd1/src/lib/model/schema.ts#L13)
+Defined in: [model/schema.ts:13](https://github.com/data7expressions/schema-manager/blob/bff57ca616457cd11ff12a858d17453072d5f663/src/lib/model/schema.ts#L13)
